@@ -1,0 +1,26 @@
+# Local development and private working notes
+.superpowers/
+.codex/
+AGENTS.md
+.venv/
+.cache/
+.demo-session/
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.hypothesis/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+site/
+node_modules/
+.DS_Store
+data/raw/
+data/cache/
