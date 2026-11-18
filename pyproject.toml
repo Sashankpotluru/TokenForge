@@ -11,7 +11,7 @@ license = "MIT"
 dependencies = []
 
 [project.optional-dependencies]
-benchmark = ["tokenizers==0.23.3", "tiktoken==0.14.0", "pyarrow==26.0.1", "numpy==2.3.5"]
+benchmark = ["tokenizers==0.23.3", "tiktoken==0.14.0", "pyarrow==26.0.1", "numpy==2.3.5", "truststore==0.10.5"]
 
 [project.scripts]
 tokenforge = "tokenforge.cli:main"

@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import ssl
 from dataclasses import dataclass
 from pathlib import Path
 from tempfile import NamedTemporaryFile
@@ -35,8 +36,11 @@ def check_file(path, spec):
 def fetch_sources(cache=CACHE, *, offline=False):
     manifest = json.loads(SOURCES.read_text())
     if not offline:
+        import truststore
+
+        tls = truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
         request = Request(manifest["cpython_commit_api"], headers={"User-Agent": "TokenForge"})
-        with urlopen(request, timeout=60) as response:
+        with urlopen(request, timeout=60, context=tls) as response:
             if json.load(response)["sha"] != manifest["cpython_revision"]:
                 raise ValueError("CPython tag no longer resolves to pinned commit")
     for spec in manifest["files"]:
@@ -46,7 +50,7 @@ def fetch_sources(cache=CACHE, *, offline=False):
             with NamedTemporaryFile(dir=dest.parent, delete=False) as tmp:
                 staged = Path(tmp.name)
             try:
-                with urlopen(spec["url"], timeout=90) as resp:
+                with urlopen(spec["url"], timeout=90, context=tls) as resp:
                     staged.write_bytes(resp.read(spec["bytes"] + 1))
                 check_file(staged, spec)
                 staged.replace(dest)
