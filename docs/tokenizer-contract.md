@@ -74,7 +74,7 @@ Version 1 limits vocabulary to 100,000 IDs, rules to 200,000, model files to 32 
 
 ## CLI
 
-All commands write JSON to stdout and failures to stderr with a nonzero exit status. Input files use UTF-8, preserving CRLF. Omit `--input` or pass `-` to read stdin. Repeated training inputs are separate documents.
+All commands write JSON to stdout and failures to stderr with a nonzero exit status. Input files use UTF-8, preserving CRLF. Omit `--input` or pass `-` to read stdin. Repeated training inputs are separate documents. For encode and decode, a model supplied over stdin requires an explicit input file so that the two streams are distinct.
 
 ```sh
 tokenforge train --algorithm bpe --vocab-size 300 --input corpus.txt --output model.json

@@ -1,0 +1,566 @@
+{
+  "datasets": {
+    "cpython": {
+      "bytes": 154110,
+      "rows": 4,
+      "scalars": 154105
+    },
+    "wikitext": {
+      "bytes": 1287656,
+      "rows": 2891,
+      "scalars": 1285622
+    }
+  },
+  "limits": [
+    "Training uses a WikiText prefix within 250,000 bytes after exact test-row exclusion.",
+    "WordPiece discards whitespace and replaces entire unknown pretokens.",
+    "cl100k_base is separately pretrained with a larger vocabulary.",
+    "Runtime timings include each interface's text processing and ID extraction."
+  ],
+  "models": [
+    {
+      "algorithm": "bpe",
+      "bytes": 42851,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.397696354072193,
+          "canonical_matches": null,
+          "exact_roundtrips": 4,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.3976510067114094,
+          "tokens": 110260,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 1.7595159491899692,
+          "canonical_matches": null,
+          "exact_roundtrips": 2891,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 1.7567365924047311,
+          "tokens": 731824,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        }
+      },
+      "key": "bpe-1024",
+      "path": "models/bpe-1024.json",
+      "sha256": "ac98041506dee8bacc47c9441df4f75d895ef8f9d882d4790ea4dbbd9d0d9635",
+      "special_parity_cases": 56,
+      "target": 1024,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "median_bytes_per_second": 1878016.9189584283,
+            "median_tokens_per_second": 1332671.3416270297,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 831592.7374318353,
+            "median_tokens_per_second": 590111.7279045717,
+            "repetitions": 5
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "median_bytes_per_second": 1282585.1011346818,
+            "median_tokens_per_second": 737444.4992599902,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 786860.4534250827,
+            "median_tokens_per_second": 452419.03445642494,
+            "repetitions": 5
+          }
+        }
+      },
+      "training_seconds": 0.6405965,
+      "vocab_size": 1024
+    },
+    {
+      "algorithm": "bpe",
+      "bytes": 70820,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.4686514251951246,
+          "canonical_matches": null,
+          "exact_roundtrips": 4,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.4686037757426167,
+          "tokens": 104933,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 1.9331764960222675,
+          "canonical_matches": null,
+          "exact_roundtrips": 2891,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 1.930122822531126,
+          "tokens": 666083,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        }
+      },
+      "key": "bpe-2048",
+      "path": "models/bpe-2048.json",
+      "sha256": "9e8eb13e56668d636b2e29215dd3a01aadaaf1d90f3e8bd47f9ad8b7be061d74",
+      "special_parity_cases": 56,
+      "target": 2048,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "median_bytes_per_second": 1862677.8232708722,
+            "median_tokens_per_second": 1251673.5400724588,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 826296.8869382803,
+            "median_tokens_per_second": 555251.1211030226,
+            "repetitions": 5
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "median_bytes_per_second": 1289716.6552336065,
+            "median_tokens_per_second": 679534.5312481706,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 765198.4518255802,
+            "median_tokens_per_second": 403172.8745713823,
+            "repetitions": 5
+          }
+        }
+      },
+      "training_seconds": 1.459197917,
+      "vocab_size": 2048
+    },
+    {
+      "algorithm": "bpe",
+      "bytes": 131190,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.5335396495278277,
+          "canonical_matches": null,
+          "exact_roundtrips": 4,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.5334898948185445,
+          "tokens": 100493,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 2.0821774269183626,
+          "canonical_matches": null,
+          "exact_roundtrips": 2891,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 2.0788883894065178,
+          "tokens": 618418,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        }
+      },
+      "key": "bpe-4096",
+      "path": "models/bpe-4096.json",
+      "sha256": "86dbb1b2e51781f59d6aa469a02045f8a69636a015fa03e968840838af882480",
+      "special_parity_cases": 56,
+      "target": 4096,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "median_bytes_per_second": 1905158.660879302,
+            "median_tokens_per_second": 1232443.7568102872,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 807185.3246941636,
+            "median_tokens_per_second": 522166.75410596206,
+            "repetitions": 5
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "median_bytes_per_second": 1294511.5954837988,
+            "median_tokens_per_second": 632268.1836854095,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 758927.2030651341,
+            "median_tokens_per_second": 370676.88378033205,
+            "repetitions": 5
+          }
+        }
+      },
+      "training_seconds": 2.868003292,
+      "vocab_size": 4096
+    },
+    {
+      "algorithm": "wordpiece",
+      "bytes": 40890,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.5105417405879067,
+          "canonical_matches": 4,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.0673411383248341,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.5104927320310126,
+          "tokens": 102023,
+          "unknown_bytes": 4618,
+          "unknown_token_rate": 0.04473501073287396,
+          "unknown_word_rate": 0.1107686333519404,
+          "unknown_words": 4564,
+          "word_byte_coverage": 0.9574926362297497,
+          "word_bytes": 108640,
+          "word_coverage": 0.8892313666480596,
+          "words": 41203
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 1.3964627951466462,
+          "canonical_matches": 2891,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.1266049113487873,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 1.3942569223628216,
+          "tokens": 922084,
+          "unknown_bytes": 2265,
+          "unknown_token_rate": 0.00041427895940066196,
+          "unknown_word_rate": 0.0015299277089132306,
+          "unknown_words": 382,
+          "word_byte_coverage": 0.997823494535674,
+          "word_bytes": 1040659,
+          "word_coverage": 0.9984700722910868,
+          "words": 249685
+        }
+      },
+      "key": "wordpiece-1024",
+      "path": "models/wordpiece-1024.json",
+      "sha256": "e8ce7f037a7a7603f0a06df8906ca2a68db5b85e7f69c604618735c58090820e",
+      "special_parity_cases": 56,
+      "target": 1024,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "median_bytes_per_second": 1452993.8420579752,
+            "median_tokens_per_second": 967083.1403899194,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 797433.8105041414,
+            "median_tokens_per_second": 530755.7206320729,
+            "repetitions": 5
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "median_bytes_per_second": 1352594.9344960717,
+            "median_tokens_per_second": 958751.4213744754,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 758868.1439891444,
+            "median_tokens_per_second": 537903.7678833738,
+            "repetitions": 5
+          }
+        }
+      },
+      "training_seconds": 0.291375333,
+      "vocab_size": 1024
+    },
+    {
+      "algorithm": "wordpiece",
+      "bytes": 65222,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.5937742385852423,
+          "canonical_matches": 4,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.129066220924553,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.5937225296033921,
+          "tokens": 96695,
+          "unknown_bytes": 4618,
+          "unknown_token_rate": 0.04719995863281452,
+          "unknown_word_rate": 0.1107686333519404,
+          "unknown_words": 4564,
+          "word_byte_coverage": 0.9574926362297497,
+          "word_bytes": 108640,
+          "word_coverage": 0.8892313666480596,
+          "words": 41203
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 1.510296334089856,
+          "canonical_matches": 2891,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.2184819814058387,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 1.5079106482051643,
+          "tokens": 852585,
+          "unknown_bytes": 2265,
+          "unknown_token_rate": 0.00044804916811813487,
+          "unknown_word_rate": 0.0015299277089132306,
+          "unknown_words": 382,
+          "word_byte_coverage": 0.997823494535674,
+          "word_bytes": 1040659,
+          "word_coverage": 0.9984700722910868,
+          "words": 249685
+        }
+      },
+      "key": "wordpiece-2048",
+      "path": "models/wordpiece-2048.json",
+      "sha256": "afcc593b6b144e1f719a705710c4136d9e2a494d3f7f84dc276e6b28187a923d",
+      "special_parity_cases": 56,
+      "target": 2048,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "median_bytes_per_second": 1573776.9720360783,
+            "median_tokens_per_second": 989468.8071062567,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 866290.4988837296,
+            "median_tokens_per_second": 544656.2262434207,
+            "repetitions": 5
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "median_bytes_per_second": 1454426.7316450092,
+            "median_tokens_per_second": 964918.5424806955,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 826691.4693186425,
+            "median_tokens_per_second": 548456.5913842582,
+            "repetitions": 5
+          }
+        }
+      },
+      "training_seconds": 0.620972208,
+      "vocab_size": 2048
+    },
+    {
+      "algorithm": "wordpiece",
+      "bytes": 114159,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.7783906666512803,
+          "canonical_matches": 4,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.2671238717064792,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.778332967907959,
+          "tokens": 86657,
+          "unknown_bytes": 4618,
+          "unknown_token_rate": 0.052667412903746956,
+          "unknown_word_rate": 0.1107686333519404,
+          "unknown_words": 4564,
+          "word_byte_coverage": 0.9574926362297497,
+          "word_bytes": 108640,
+          "word_coverage": 0.8892313666480596,
+          "words": 41203
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 1.7859578994963863,
+          "canonical_matches": 2891,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.4409990466370712,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 1.7831367746248556,
+          "tokens": 720989,
+          "unknown_bytes": 2265,
+          "unknown_token_rate": 0.0005298277782324003,
+          "unknown_word_rate": 0.0015299277089132306,
+          "unknown_words": 382,
+          "word_byte_coverage": 0.997823494535674,
+          "word_bytes": 1040659,
+          "word_coverage": 0.9984700722910868,
+          "words": 249685
+        }
+      },
+      "key": "wordpiece-4096",
+      "path": "models/wordpiece-4096.json",
+      "sha256": "551784dc21f2da5541dfc04d9abd8c7878bbc5d8e5ab43f0d30cf3d247c9c6c9",
+      "special_parity_cases": 56,
+      "target": 4096,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "median_bytes_per_second": 1682257.3224313352,
+            "median_tokens_per_second": 929115.6777511454,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 1009241.0177409099,
+            "median_tokens_per_second": 557406.788907513,
+            "repetitions": 5
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "median_bytes_per_second": 1539975.7518088405,
+            "median_tokens_per_second": 858780.2311610344,
+            "repetitions": 5
+          },
+          "tokenforge": {
+            "median_bytes_per_second": 918546.3691025847,
+            "median_tokens_per_second": 512234.98958570935,
+            "repetitions": 5
+          }
+        }
+      },
+      "training_seconds": 1.329236083,
+      "vocab_size": 4096
+    }
+  ],
+  "reference": {
+    "algorithm": "pretrained_reference",
+    "datasets": {
+      "cpython": {
+        "bytes": 154110,
+        "bytes_per_token": 4.0629036935488125,
+        "canonical_matches": null,
+        "exact_roundtrips": 4,
+        "known_bytes_per_known_token": null,
+        "parity_rows": null,
+        "rows": 4,
+        "scalars": 154105,
+        "scalars_per_token": 4.062771875247159,
+        "tokens": 37931,
+        "unknown_bytes": null,
+        "unknown_token_rate": null,
+        "unknown_word_rate": null,
+        "unknown_words": null,
+        "word_byte_coverage": null,
+        "word_bytes": null,
+        "word_coverage": null,
+        "words": null
+      },
+      "wikitext": {
+        "bytes": 1287656,
+        "bytes_per_token": 4.453014714782218,
+        "canonical_matches": null,
+        "exact_roundtrips": 2891,
+        "known_bytes_per_known_token": null,
+        "parity_rows": null,
+        "rows": 2891,
+        "scalars": 1285622,
+        "scalars_per_token": 4.4459806684764756,
+        "tokens": 289165,
+        "unknown_bytes": null,
+        "unknown_token_rate": null,
+        "unknown_word_rate": null,
+        "unknown_words": null,
+        "word_byte_coverage": null,
+        "word_bytes": null,
+        "word_coverage": null,
+        "words": null
+      }
+    },
+    "key": "cl100k_base",
+    "timing": {
+      "cpython": {
+        "tiktoken": {
+          "median_bytes_per_second": 17032200.063551057,
+          "median_tokens_per_second": 3715756.2705001673,
+          "repetitions": 5
+        }
+      },
+      "wikitext": {
+        "tiktoken": {
+          "median_bytes_per_second": 20229293.33642502,
+          "median_tokens_per_second": 4539491.396442172,
+          "repetitions": 5
+        }
+      }
+    },
+    "vocab_size": 100277
+  },
+  "report": {
+    "bytes": 31470,
+    "path": "results/report.json",
+    "sha256": "695acf75c07b599a772a03f7f456abaa0700a17576b465f538be4e75e27e967d"
+  },
+  "training_bytes": 249386,
+  "version": 1
+}

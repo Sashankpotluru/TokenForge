@@ -1,0 +1,1153 @@
+{
+  "models": [
+    {
+      "algorithm": "bpe",
+      "bytes": 42851,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.397696354072193,
+          "canonical_matches": null,
+          "exact_roundtrips": 4,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.3976510067114094,
+          "tokens": 110260,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        },
+        "unicode": {
+          "bytes": 70,
+          "bytes_per_token": 1.0769230769230769,
+          "canonical_matches": null,
+          "exact_roundtrips": 8,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 8,
+          "rows": 8,
+          "scalars": 39,
+          "scalars_per_token": 0.6,
+          "tokens": 65,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 1.7595159491899692,
+          "canonical_matches": null,
+          "exact_roundtrips": 2891,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 1.7567365924047311,
+          "tokens": 731824,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        }
+      },
+      "key": "bpe-1024",
+      "path": "models/bpe-1024.json",
+      "sha256": "ac98041506dee8bacc47c9441df4f75d895ef8f9d882d4790ea4dbbd9d0d9635",
+      "special_parity_cases": 56,
+      "target": 1024,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "bytes": 39558,
+            "runs_ns": [
+              21276166,
+              21075209,
+              21036833,
+              21000417,
+              21063708
+            ],
+            "tokens": 28071
+          },
+          "tokenforge": {
+            "bytes": 39558,
+            "runs_ns": [
+              47442875,
+              47071334,
+              47840708,
+              47925542,
+              47568958
+            ],
+            "tokens": 28071
+          }
+        },
+        "unicode": {
+          "huggingface": {
+            "bytes": 70,
+            "runs_ns": [
+              48208,
+              46958,
+              45541,
+              45833,
+              45292
+            ],
+            "tokens": 65
+          },
+          "tokenforge": {
+            "bytes": 70,
+            "runs_ns": [
+              87459,
+              85125,
+              83667,
+              83792,
+              83875
+            ],
+            "tokens": 65
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "bytes": 12999,
+            "runs_ns": [
+              10014000,
+              10135000,
+              10045500,
+              10200208,
+              10257541
+            ],
+            "tokens": 7474
+          },
+          "tokenforge": {
+            "bytes": 12999,
+            "runs_ns": [
+              16520083,
+              16580208,
+              16511417,
+              16569167,
+              16488625
+            ],
+            "tokens": 7474
+          }
+        }
+      },
+      "training_seconds": 0.6405965,
+      "vocab_size": 1024
+    },
+    {
+      "algorithm": "bpe",
+      "bytes": 70820,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.4686514251951246,
+          "canonical_matches": null,
+          "exact_roundtrips": 4,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.4686037757426167,
+          "tokens": 104933,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        },
+        "unicode": {
+          "bytes": 70,
+          "bytes_per_token": 1.0769230769230769,
+          "canonical_matches": null,
+          "exact_roundtrips": 8,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 8,
+          "rows": 8,
+          "scalars": 39,
+          "scalars_per_token": 0.6,
+          "tokens": 65,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 1.9331764960222675,
+          "canonical_matches": null,
+          "exact_roundtrips": 2891,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 1.930122822531126,
+          "tokens": 666083,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        }
+      },
+      "key": "bpe-2048",
+      "path": "models/bpe-2048.json",
+      "sha256": "9e8eb13e56668d636b2e29215dd3a01aadaaf1d90f3e8bd47f9ad8b7be061d74",
+      "special_parity_cases": 56,
+      "target": 2048,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "bytes": 39558,
+            "runs_ns": [
+              21596875,
+              21478708,
+              21237167,
+              21201709,
+              21090417
+            ],
+            "tokens": 26582
+          },
+          "tokenforge": {
+            "bytes": 39558,
+            "runs_ns": [
+              48095875,
+              47873834,
+              47685291,
+              47487041,
+              48427875
+            ],
+            "tokens": 26582
+          }
+        },
+        "unicode": {
+          "huggingface": {
+            "bytes": 70,
+            "runs_ns": [
+              49042,
+              46958,
+              45708,
+              45667,
+              45167
+            ],
+            "tokens": 65
+          },
+          "tokenforge": {
+            "bytes": 70,
+            "runs_ns": [
+              87333,
+              85500,
+              84416,
+              84083,
+              83750
+            ],
+            "tokens": 65
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "bytes": 12999,
+            "runs_ns": [
+              10199083,
+              10043083,
+              10078958,
+              10194416,
+              10023042
+            ],
+            "tokens": 6849
+          },
+          "tokenforge": {
+            "bytes": 12999,
+            "runs_ns": [
+              16904167,
+              17060917,
+              16898750,
+              17031333,
+              16987750
+            ],
+            "tokens": 6849
+          }
+        }
+      },
+      "training_seconds": 1.459197917,
+      "vocab_size": 2048
+    },
+    {
+      "algorithm": "bpe",
+      "bytes": 131190,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.5335396495278277,
+          "canonical_matches": null,
+          "exact_roundtrips": 4,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.5334898948185445,
+          "tokens": 100493,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        },
+        "unicode": {
+          "bytes": 70,
+          "bytes_per_token": 1.1111111111111112,
+          "canonical_matches": null,
+          "exact_roundtrips": 8,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 8,
+          "rows": 8,
+          "scalars": 39,
+          "scalars_per_token": 0.6190476190476191,
+          "tokens": 63,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 2.0821774269183626,
+          "canonical_matches": null,
+          "exact_roundtrips": 2891,
+          "known_bytes_per_known_token": null,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 2.0788883894065178,
+          "tokens": 618418,
+          "unknown_bytes": null,
+          "unknown_token_rate": null,
+          "unknown_word_rate": null,
+          "unknown_words": null,
+          "word_byte_coverage": null,
+          "word_bytes": null,
+          "word_coverage": null,
+          "words": null
+        }
+      },
+      "key": "bpe-4096",
+      "path": "models/bpe-4096.json",
+      "sha256": "86dbb1b2e51781f59d6aa469a02045f8a69636a015fa03e968840838af882480",
+      "special_parity_cases": 56,
+      "target": 4096,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "bytes": 39558,
+            "runs_ns": [
+              21170000,
+              21137583,
+              20721792,
+              20695417,
+              20763625
+            ],
+            "tokens": 25590
+          },
+          "tokenforge": {
+            "bytes": 39558,
+            "runs_ns": [
+              49418583,
+              48883542,
+              49648542,
+              48868292,
+              49007333
+            ],
+            "tokens": 25590
+          }
+        },
+        "unicode": {
+          "huggingface": {
+            "bytes": 70,
+            "runs_ns": [
+              49417,
+              46917,
+              45709,
+              44750,
+              44417
+            ],
+            "tokens": 63
+          },
+          "tokenforge": {
+            "bytes": 70,
+            "runs_ns": [
+              88834,
+              89750,
+              86084,
+              85250,
+              84708
+            ],
+            "tokens": 63
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "bytes": 12999,
+            "runs_ns": [
+              10078750,
+              10041625,
+              9985458,
+              9957542,
+              10041625
+            ],
+            "tokens": 6349
+          },
+          "tokenforge": {
+            "bytes": 12999,
+            "runs_ns": [
+              17092334,
+              17170375,
+              17104958,
+              17135583,
+              17128125
+            ],
+            "tokens": 6349
+          }
+        }
+      },
+      "training_seconds": 2.868003292,
+      "vocab_size": 4096
+    },
+    {
+      "algorithm": "wordpiece",
+      "bytes": 40890,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.5105417405879067,
+          "canonical_matches": 4,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.0673411383248341,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.5104927320310126,
+          "tokens": 102023,
+          "unknown_bytes": 4618,
+          "unknown_token_rate": 0.04473501073287396,
+          "unknown_word_rate": 0.1107686333519404,
+          "unknown_words": 4564,
+          "word_byte_coverage": 0.9574926362297497,
+          "word_bytes": 108640,
+          "word_coverage": 0.8892313666480596,
+          "words": 41203
+        },
+        "unicode": {
+          "bytes": 70,
+          "bytes_per_token": 4.375,
+          "canonical_matches": 8,
+          "exact_roundtrips": 1,
+          "known_bytes_per_known_token": 1.4,
+          "parity_rows": 8,
+          "rows": 8,
+          "scalars": 39,
+          "scalars_per_token": 2.4375,
+          "tokens": 16,
+          "unknown_bytes": 38,
+          "unknown_token_rate": 0.375,
+          "unknown_word_rate": 0.42857142857142855,
+          "unknown_words": 6,
+          "word_byte_coverage": 0.2692307692307692,
+          "word_bytes": 52,
+          "word_coverage": 0.5714285714285714,
+          "words": 14
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 1.3964627951466462,
+          "canonical_matches": 2891,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.1266049113487873,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 1.3942569223628216,
+          "tokens": 922084,
+          "unknown_bytes": 2265,
+          "unknown_token_rate": 0.00041427895940066196,
+          "unknown_word_rate": 0.0015299277089132306,
+          "unknown_words": 382,
+          "word_byte_coverage": 0.997823494535674,
+          "word_bytes": 1040659,
+          "word_coverage": 0.9984700722910868,
+          "words": 249685
+        }
+      },
+      "key": "wordpiece-1024",
+      "path": "models/wordpiece-1024.json",
+      "sha256": "e8ce7f037a7a7603f0a06df8906ca2a68db5b85e7f69c604618735c58090820e",
+      "special_parity_cases": 56,
+      "target": 1024,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "bytes": 39558,
+            "runs_ns": [
+              26290375,
+              26706584,
+              27416834,
+              28015209,
+              27225167
+            ],
+            "tokens": 26329
+          },
+          "tokenforge": {
+            "bytes": 39558,
+            "runs_ns": [
+              47518375,
+              49750333,
+              49606625,
+              47605750,
+              57937250
+            ],
+            "tokens": 26329
+          }
+        },
+        "unicode": {
+          "huggingface": {
+            "bytes": 70,
+            "runs_ns": [
+              64666,
+              77166,
+              49125,
+              44125,
+              43041
+            ],
+            "tokens": 16
+          },
+          "tokenforge": {
+            "bytes": 70,
+            "runs_ns": [
+              49709,
+              46708,
+              44542,
+              43417,
+              46000
+            ],
+            "tokens": 16
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "bytes": 12999,
+            "runs_ns": [
+              9372666,
+              9610416,
+              9742542,
+              9556750,
+              9659833
+            ],
+            "tokens": 9214
+          },
+          "tokenforge": {
+            "bytes": 12999,
+            "runs_ns": [
+              17025125,
+              17728958,
+              18997875,
+              17129458,
+              17069375
+            ],
+            "tokens": 9214
+          }
+        }
+      },
+      "training_seconds": 0.291375333,
+      "vocab_size": 1024
+    },
+    {
+      "algorithm": "wordpiece",
+      "bytes": 65222,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.5937742385852423,
+          "canonical_matches": 4,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.129066220924553,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.5937225296033921,
+          "tokens": 96695,
+          "unknown_bytes": 4618,
+          "unknown_token_rate": 0.04719995863281452,
+          "unknown_word_rate": 0.1107686333519404,
+          "unknown_words": 4564,
+          "word_byte_coverage": 0.9574926362297497,
+          "word_bytes": 108640,
+          "word_coverage": 0.8892313666480596,
+          "words": 41203
+        },
+        "unicode": {
+          "bytes": 70,
+          "bytes_per_token": 4.375,
+          "canonical_matches": 8,
+          "exact_roundtrips": 1,
+          "known_bytes_per_known_token": 1.4,
+          "parity_rows": 8,
+          "rows": 8,
+          "scalars": 39,
+          "scalars_per_token": 2.4375,
+          "tokens": 16,
+          "unknown_bytes": 38,
+          "unknown_token_rate": 0.375,
+          "unknown_word_rate": 0.42857142857142855,
+          "unknown_words": 6,
+          "word_byte_coverage": 0.2692307692307692,
+          "word_bytes": 52,
+          "word_coverage": 0.5714285714285714,
+          "words": 14
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 1.510296334089856,
+          "canonical_matches": 2891,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.2184819814058387,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 1.5079106482051643,
+          "tokens": 852585,
+          "unknown_bytes": 2265,
+          "unknown_token_rate": 0.00044804916811813487,
+          "unknown_word_rate": 0.0015299277089132306,
+          "unknown_words": 382,
+          "word_byte_coverage": 0.997823494535674,
+          "word_bytes": 1040659,
+          "word_coverage": 0.9984700722910868,
+          "words": 249685
+        }
+      },
+      "key": "wordpiece-2048",
+      "path": "models/wordpiece-2048.json",
+      "sha256": "afcc593b6b144e1f719a705710c4136d9e2a494d3f7f84dc276e6b28187a923d",
+      "special_parity_cases": 56,
+      "target": 2048,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "bytes": 39558,
+            "runs_ns": [
+              27966333,
+              26025458,
+              25135709,
+              25045459,
+              25095875
+            ],
+            "tokens": 24871
+          },
+          "tokenforge": {
+            "bytes": 39558,
+            "runs_ns": [
+              43449250,
+              43344708,
+              52518334,
+              45663666,
+              49178250
+            ],
+            "tokens": 24871
+          }
+        },
+        "unicode": {
+          "huggingface": {
+            "bytes": 70,
+            "runs_ns": [
+              45209,
+              44291,
+              45000,
+              46125,
+              45333
+            ],
+            "tokens": 16
+          },
+          "tokenforge": {
+            "bytes": 70,
+            "runs_ns": [
+              46834,
+              44708,
+              42667,
+              42709,
+              42792
+            ],
+            "tokens": 16
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "bytes": 12999,
+            "runs_ns": [
+              9060791,
+              9005000,
+              8926667,
+              8937542,
+              8926167
+            ],
+            "tokens": 8624
+          },
+          "tokenforge": {
+            "bytes": 12999,
+            "runs_ns": [
+              15724125,
+              15960750,
+              15653375,
+              15699375,
+              15750917
+            ],
+            "tokens": 8624
+          }
+        }
+      },
+      "training_seconds": 0.620972208,
+      "vocab_size": 2048
+    },
+    {
+      "algorithm": "wordpiece",
+      "bytes": 114159,
+      "datasets": {
+        "cpython": {
+          "bytes": 154110,
+          "bytes_per_token": 1.7783906666512803,
+          "canonical_matches": 4,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.2671238717064792,
+          "parity_rows": 4,
+          "rows": 4,
+          "scalars": 154105,
+          "scalars_per_token": 1.778332967907959,
+          "tokens": 86657,
+          "unknown_bytes": 4618,
+          "unknown_token_rate": 0.052667412903746956,
+          "unknown_word_rate": 0.1107686333519404,
+          "unknown_words": 4564,
+          "word_byte_coverage": 0.9574926362297497,
+          "word_bytes": 108640,
+          "word_coverage": 0.8892313666480596,
+          "words": 41203
+        },
+        "unicode": {
+          "bytes": 70,
+          "bytes_per_token": 4.375,
+          "canonical_matches": 8,
+          "exact_roundtrips": 1,
+          "known_bytes_per_known_token": 1.4,
+          "parity_rows": 8,
+          "rows": 8,
+          "scalars": 39,
+          "scalars_per_token": 2.4375,
+          "tokens": 16,
+          "unknown_bytes": 38,
+          "unknown_token_rate": 0.375,
+          "unknown_word_rate": 0.42857142857142855,
+          "unknown_words": 6,
+          "word_byte_coverage": 0.2692307692307692,
+          "word_bytes": 52,
+          "word_coverage": 0.5714285714285714,
+          "words": 14
+        },
+        "wikitext": {
+          "bytes": 1287656,
+          "bytes_per_token": 1.7859578994963863,
+          "canonical_matches": 2891,
+          "exact_roundtrips": 0,
+          "known_bytes_per_known_token": 1.4409990466370712,
+          "parity_rows": 2891,
+          "rows": 2891,
+          "scalars": 1285622,
+          "scalars_per_token": 1.7831367746248556,
+          "tokens": 720989,
+          "unknown_bytes": 2265,
+          "unknown_token_rate": 0.0005298277782324003,
+          "unknown_word_rate": 0.0015299277089132306,
+          "unknown_words": 382,
+          "word_byte_coverage": 0.997823494535674,
+          "word_bytes": 1040659,
+          "word_coverage": 0.9984700722910868,
+          "words": 249685
+        }
+      },
+      "key": "wordpiece-4096",
+      "path": "models/wordpiece-4096.json",
+      "sha256": "551784dc21f2da5541dfc04d9abd8c7878bbc5d8e5ab43f0d30cf3d247c9c6c9",
+      "special_parity_cases": 56,
+      "target": 4096,
+      "timing": {
+        "cpython": {
+          "huggingface": {
+            "bytes": 39558,
+            "runs_ns": [
+              23604459,
+              23514833,
+              23373625,
+              23480750,
+              23636500
+            ],
+            "tokens": 21848
+          },
+          "tokenforge": {
+            "bytes": 39558,
+            "runs_ns": [
+              49168417,
+              40006542,
+              39097209,
+              39030416,
+              39195791
+            ],
+            "tokens": 21848
+          }
+        },
+        "unicode": {
+          "huggingface": {
+            "bytes": 70,
+            "runs_ns": [
+              45375,
+              43209,
+              42166,
+              47250,
+              41916
+            ],
+            "tokens": 16
+          },
+          "tokenforge": {
+            "bytes": 70,
+            "runs_ns": [
+              46709,
+              44416,
+              43167,
+              45875,
+              43541
+            ],
+            "tokens": 16
+          }
+        },
+        "wikitext": {
+          "huggingface": {
+            "bytes": 12999,
+            "runs_ns": [
+              8474375,
+              8431666,
+              8447375,
+              8441042,
+              8370166
+            ],
+            "tokens": 7249
+          },
+          "tokenforge": {
+            "bytes": 12999,
+            "runs_ns": [
+              14284375,
+              14151708,
+              14160167,
+              14112209,
+              14107000
+            ],
+            "tokens": 7249
+          }
+        }
+      },
+      "training_seconds": 1.329236083,
+      "vocab_size": 4096
+    }
+  ],
+  "observations": {
+    "bytes": 226084,
+    "path": "results/rows.jsonl.gz",
+    "sha256": "92e97a06371229217e2901cbc6e2f79ee0b4e2f9a5626e6b310349010058c113"
+  },
+  "provenance": {
+    "benchmark_lock": {
+      "bytes": 485,
+      "path": "requirements-benchmark.txt",
+      "sha256": "0da829145b884f9f15bba7aa0627e85e587510c466eeb7da42dd2f1221cba195"
+    },
+    "cpu": "Apple M4 Pro",
+    "machine": "arm64",
+    "measurement_sources_dirty": false,
+    "os": "Darwin",
+    "os_version": "27.0.1",
+    "packages": {
+      "numpy": "2.3.5",
+      "pyarrow": "26.0.1",
+      "tiktoken": "0.14.0",
+      "tokenizers": "0.23.3"
+    },
+    "python": "3.13.2",
+    "python_implementation": "CPython",
+    "rayon_num_threads": 1,
+    "source_commit": "d83655498813d58dbd4559f896614c58cc239f85",
+    "tokenizers_parallelism": false,
+    "unicode_version": "15.1.0",
+    "worktree_dirty_at_start": false
+  },
+  "reference": {
+    "algorithm": "pretrained_reference",
+    "datasets": {
+      "cpython": {
+        "bytes": 154110,
+        "bytes_per_token": 4.0629036935488125,
+        "canonical_matches": null,
+        "exact_roundtrips": 4,
+        "known_bytes_per_known_token": null,
+        "parity_rows": null,
+        "rows": 4,
+        "scalars": 154105,
+        "scalars_per_token": 4.062771875247159,
+        "tokens": 37931,
+        "unknown_bytes": null,
+        "unknown_token_rate": null,
+        "unknown_word_rate": null,
+        "unknown_words": null,
+        "word_byte_coverage": null,
+        "word_bytes": null,
+        "word_coverage": null,
+        "words": null
+      },
+      "unicode": {
+        "bytes": 70,
+        "bytes_per_token": 1.7073170731707317,
+        "canonical_matches": null,
+        "exact_roundtrips": 8,
+        "known_bytes_per_known_token": null,
+        "parity_rows": null,
+        "rows": 8,
+        "scalars": 39,
+        "scalars_per_token": 0.9512195121951219,
+        "tokens": 41,
+        "unknown_bytes": null,
+        "unknown_token_rate": null,
+        "unknown_word_rate": null,
+        "unknown_words": null,
+        "word_byte_coverage": null,
+        "word_bytes": null,
+        "word_coverage": null,
+        "words": null
+      },
+      "wikitext": {
+        "bytes": 1287656,
+        "bytes_per_token": 4.453014714782218,
+        "canonical_matches": null,
+        "exact_roundtrips": 2891,
+        "known_bytes_per_known_token": null,
+        "parity_rows": null,
+        "rows": 2891,
+        "scalars": 1285622,
+        "scalars_per_token": 4.4459806684764756,
+        "tokens": 289165,
+        "unknown_bytes": null,
+        "unknown_token_rate": null,
+        "unknown_word_rate": null,
+        "unknown_words": null,
+        "word_byte_coverage": null,
+        "word_bytes": null,
+        "word_coverage": null,
+        "words": null
+      }
+    },
+    "key": "cl100k_base",
+    "timing": {
+      "cpython": {
+        "tiktoken": {
+          "bytes": 39558,
+          "runs_ns": [
+            2322542,
+            2330708,
+            2310583,
+            2306208,
+            2326583
+          ],
+          "tokens": 8630
+        }
+      },
+      "unicode": {
+        "tiktoken": {
+          "bytes": 70,
+          "runs_ns": [
+            9375,
+            9042,
+            8500,
+            8500,
+            8375
+          ],
+          "tokens": 41
+        }
+      },
+      "wikitext": {
+        "tiktoken": {
+          "bytes": 12999,
+          "runs_ns": [
+            644583,
+            643959,
+            642583,
+            637917,
+            638250
+          ],
+          "tokens": 2917
+        }
+      }
+    },
+    "vocab_size": 100277
+  },
+  "sources": {
+    "cpython_commit_api": "https://api.github.com/repos/python/cpython/commits/v3.13.0",
+    "cpython_revision": "60403a5409ff2c3f3b07dd2ca91a7a3e096839c7",
+    "cpython_tag": "v3.13.0",
+    "files": [
+      {
+        "bytes": 39558,
+        "path": "Lib/functools.py",
+        "sha256": "c38d26d5a6a97df9917cfd4aa66c168bccadab1b6b5bd9d118eb89d1e4ca6a91",
+        "url": "https://raw.githubusercontent.com/python/cpython/60403a5409ff2c3f3b07dd2ca91a7a3e096839c7/Lib/functools.py"
+      },
+      {
+        "bytes": 52425,
+        "path": "Lib/collections/__init__.py",
+        "sha256": "9d2fb944932526a29c70b83238fadc6a5a05c86910623776820e61a5e1deb69c",
+        "url": "https://raw.githubusercontent.com/python/cpython/60403a5409ff2c3f3b07dd2ca91a7a3e096839c7/Lib/collections/__init__.py"
+      },
+      {
+        "bytes": 296,
+        "path": "Lib/pathlib/__init__.py",
+        "sha256": "07921047886282e3d324acf95f7d9f840faa806664ee7007e7333a7df4cdcaf6",
+        "url": "https://raw.githubusercontent.com/python/cpython/60403a5409ff2c3f3b07dd2ca91a7a3e096839c7/Lib/pathlib/__init__.py"
+      },
+      {
+        "bytes": 61831,
+        "path": "Lib/statistics.py",
+        "sha256": "0f618d7c13e99f5289d5e2a20ba8b7340be27ab424f2bffb739ab3be291fe261",
+        "url": "https://raw.githubusercontent.com/python/cpython/60403a5409ff2c3f3b07dd2ca91a7a3e096839c7/Lib/statistics.py"
+      },
+      {
+        "bytes": 13809,
+        "path": "LICENSE",
+        "sha256": "78b12c3a81360b357002334f0e70ea0e92eebf7a9b358805c03c48484945f3bb",
+        "url": "https://raw.githubusercontent.com/python/cpython/60403a5409ff2c3f3b07dd2ca91a7a3e096839c7/LICENSE"
+      },
+      {
+        "bytes": 6357543,
+        "path": "wikitext-2-raw-v1/train-00000-of-00001.parquet",
+        "sha256": "e83889baabc497075506f91975be5fac0d45c5290b6b20582c8cd1e853d0c9f7",
+        "url": "https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext-2-raw-v1/train-00000-of-00001.parquet"
+      },
+      {
+        "bytes": 732610,
+        "path": "wikitext-2-raw-v1/test-00000-of-00001.parquet",
+        "sha256": "5f1bea067869d04849c0f975a2b29c4ff47d867f484f5010ea5e861eab246d91",
+        "url": "https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext-2-raw-v1/test-00000-of-00001.parquet"
+      },
+      {
+        "bytes": 1681126,
+        "path": "cl100k_base.tiktoken",
+        "sha256": "223921b76ee99bde995b7ff738513eef100fb51d18c93597a113bcffe865b2a7",
+        "url": "https://openaipublic.blob.core.windows.net/encodings/cl100k_base.tiktoken"
+      }
+    ],
+    "wikitext_revision": "b08601e04326c79dfdd32d625aee71d232d685c3"
+  },
+  "sources_manifest": {
+    "bytes": 2602,
+    "path": "benchmarks/sources.json",
+    "sha256": "f6117f644bf465e61e39d2a880892b8951c26f77cbdd63c70eec65dd5b5c151a"
+  },
+  "timing_subset": {
+    "cpython": [
+      "Lib/functools.py"
+    ],
+    "unicode": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "wikitext": [
+      1,
+      3,
+      4,
+      6,
+      9,
+      11,
+      12,
+      14,
+      16,
+      17,
+      19,
+      22,
+      25,
+      28,
+      32,
+      34,
+      35,
+      37,
+      39,
+      41,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      52,
+      54,
+      55,
+      56
+    ]
+  },
+  "training": {
+    "budget_bytes": 250000,
+    "excluded_rows": 1513,
+    "selected_bytes": 249386,
+    "selected_rows": 540,
+    "test_source_rows": 4358,
+    "train_source_rows": 36718
+  },
+  "training_rows": {
+    "bytes": 317563,
+    "path": "results/training-rows.json",
+    "sha256": "cc58639d70c9513ccfa31b5c2156d14606cda9cae30868640c9af572a8a477d3"
+  },
+  "unicode_fixtures": {
+    "bytes": 133,
+    "path": "tests/fixtures/unicode.json",
+    "sha256": "59d42906c23e80f9bc49cf2ef4ca8294c41359d8131360e0f3a1e142db55ea68"
+  },
+  "version": 1
+}
