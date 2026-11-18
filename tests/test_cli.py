@@ -42,3 +42,20 @@ def test_inspect_model_on_stdin(tmp_path):
     run = cli("inspect", stdin=model.read_text())
     assert run.returncode == 0, run.stderr
     assert json.loads(run.stdout)["base_size"] == 5
+
+
+def test_stdin_streams_must_be_distinct(tmp_path):
+    model = tmp_path / "bpe.json"
+    assert (
+        cli("train", "--algorithm", "bpe", "--vocab-size", 261, "--output", model).returncode == 0
+    )
+    for command in ("encode", "decode"):
+        for extra in ([], ["--input", "-"]):
+            bad = cli(command, "--model", "-", *extra, stdin=model.read_text())
+            assert bad.returncode == 2 and "both read from stdin" in bad.stderr
+    text = tmp_path / "input"
+    text.write_text("x")
+    encoded = cli("encode", "--model", "-", "--input", text, stdin=model.read_text())
+    text.write_text(json.dumps(json.loads(encoded.stdout)["ids"]))
+    decoded = cli("decode", "--model", "-", "--input", text, stdin=model.read_text())
+    assert json.loads(decoded.stdout) == {"text": "x"}

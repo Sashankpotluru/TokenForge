@@ -1,0 +1,56 @@
+{
+  "cpython_revision": "60403a5409ff2c3f3b07dd2ca91a7a3e096839c7",
+  "files": [
+    {
+      "path": "Lib/functools.py",
+      "url": "https://raw.githubusercontent.com/python/cpython/60403a5409ff2c3f3b07dd2ca91a7a3e096839c7/Lib/functools.py",
+      "bytes": 39558,
+      "sha256": "c38d26d5a6a97df9917cfd4aa66c168bccadab1b6b5bd9d118eb89d1e4ca6a91"
+    },
+    {
+      "path": "Lib/collections/__init__.py",
+      "url": "https://raw.githubusercontent.com/python/cpython/60403a5409ff2c3f3b07dd2ca91a7a3e096839c7/Lib/collections/__init__.py",
+      "bytes": 52425,
+      "sha256": "9d2fb944932526a29c70b83238fadc6a5a05c86910623776820e61a5e1deb69c"
+    },
+    {
+      "path": "Lib/pathlib/__init__.py",
+      "url": "https://raw.githubusercontent.com/python/cpython/60403a5409ff2c3f3b07dd2ca91a7a3e096839c7/Lib/pathlib/__init__.py",
+      "bytes": 296,
+      "sha256": "07921047886282e3d324acf95f7d9f840faa806664ee7007e7333a7df4cdcaf6"
+    },
+    {
+      "path": "Lib/statistics.py",
+      "url": "https://raw.githubusercontent.com/python/cpython/60403a5409ff2c3f3b07dd2ca91a7a3e096839c7/Lib/statistics.py",
+      "bytes": 61831,
+      "sha256": "0f618d7c13e99f5289d5e2a20ba8b7340be27ab424f2bffb739ab3be291fe261"
+    },
+    {
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/python/cpython/60403a5409ff2c3f3b07dd2ca91a7a3e096839c7/LICENSE",
+      "bytes": 13809,
+      "sha256": "78b12c3a81360b357002334f0e70ea0e92eebf7a9b358805c03c48484945f3bb"
+    },
+    {
+      "path": "wikitext-2-raw-v1/train-00000-of-00001.parquet",
+      "url": "https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext-2-raw-v1/train-00000-of-00001.parquet",
+      "bytes": 6357543,
+      "sha256": "e83889baabc497075506f91975be5fac0d45c5290b6b20582c8cd1e853d0c9f7"
+    },
+    {
+      "path": "wikitext-2-raw-v1/test-00000-of-00001.parquet",
+      "url": "https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext-2-raw-v1/test-00000-of-00001.parquet",
+      "bytes": 732610,
+      "sha256": "5f1bea067869d04849c0f975a2b29c4ff47d867f484f5010ea5e861eab246d91"
+    },
+    {
+      "path": "cl100k_base.tiktoken",
+      "url": "https://openaipublic.blob.core.windows.net/encodings/cl100k_base.tiktoken",
+      "bytes": 1681126,
+      "sha256": "223921b76ee99bde995b7ff738513eef100fb51d18c93597a113bcffe865b2a7"
+    }
+  ],
+  "wikitext_revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+  "cpython_tag": "v3.13.0",
+  "cpython_commit_api": "https://api.github.com/repos/python/cpython/commits/v3.13.0"
+}

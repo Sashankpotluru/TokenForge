@@ -70,6 +70,8 @@ def main(argv: list[str] | None = None) -> int:
             model.save(args.output)
             output = _summary(model)
         else:
+            if args.command in {"encode", "decode"} and args.model == args.input == "-":
+                raise ValueError("model and input cannot both read from stdin")
             model = (
                 Tokenizer._load_stream(sys.stdin.buffer)
                 if args.model == "-"
