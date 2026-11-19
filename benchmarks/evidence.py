@@ -103,9 +103,12 @@ def verify(root=ROOT):
             rows[row["domain"]].append(row)
     for model in [*report["models"], report["reference"]]:
         key = model["key"]
+        expected_runtimes = {"tiktoken"} if key == "cl100k_base" else {"tokenforge", "huggingface"}
         if key in expected_keys:
             path = root / "models" / f"{key}.json"
-            check_file(path, model)
+            descriptor = file_info(path, root)
+            if descriptor != {field: model.get(field) for field in descriptor}:
+                raise ValueError(f"Model descriptor mismatch: {descriptor['path']}")
             if model["vocab_size"] != Tokenizer.load(path).vocab_size:
                 raise ValueError(f"{key}: vocabulary size mismatch")
         for domain in DOMAINS:
@@ -118,7 +121,10 @@ def verify(root=ROOT):
             subset = [by_id[i] for i in timed]
             subset_bytes = sum(r["bytes"] for r in subset)
             subset_tokens = sum(r["models"][key]["tokens"] for r in subset)
-            for t in model["timing"][domain].values():
+            timings = model["timing"][domain]
+            if set(timings) != expected_runtimes:
+                raise ValueError(f"{key}/{domain}: unexpected timing runtimes")
+            for t in timings.values():
                 if (
                     t["tokens"] != subset_tokens
                     or t["bytes"] != subset_bytes

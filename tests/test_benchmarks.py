@@ -4,7 +4,7 @@ import shutil
 import pytest
 
 from benchmarks.data import ROOT, check_file, file_info, split_rows
-from benchmarks.evidence import verify
+from benchmarks.evidence import make_summary, verify, write_json
 from benchmarks.metrics import aggregate, timing_rates
 
 
@@ -96,3 +96,48 @@ def test_independent_aggregate_check_survives_rehashed_report(tmp_path):
     summary_path.write_text(json.dumps(summary))
     with pytest.raises(ValueError, match="aggregate mismatch"):
         verify(tmp_path)
+
+
+@pytest.fixture
+def mutable_bundle(tmp_path):
+    for directory in ("results", "models"):
+        shutil.copytree(ROOT / directory, tmp_path / directory)
+    return tmp_path, json.loads((tmp_path / "results/report.json").read_bytes())
+
+
+def rebuild_summary(root, report):
+    path = root / "results/report.json"
+    write_json(path, report)
+    write_json(root / "results/site-summary.json", make_summary(report, file_info(path, root)))
+
+
+def test_reject_wrong_model_path_after_rebuilding_summary(mutable_bundle):
+    root, report = mutable_bundle
+    report["models"][0]["path"] = "models/wordpiece-1024.json"
+    rebuild_summary(root, report)
+    with pytest.raises(ValueError, match="descriptor mismatch: models/bpe-1024.json"):
+        verify(root)
+
+
+@pytest.mark.parametrize(
+    ("reference", "domain", "runtime", "extra"),
+    [
+        (False, "wikitext", "huggingface", False),
+        (False, "unicode", "tokenforge", False),
+        (True, "cpython", "tiktoken", False),
+        (True, "wikitext", "huggingface", True),
+    ],
+)
+def test_reject_incomplete_or_unexpected_runtime_inventory(
+    mutable_bundle, reference, domain, runtime, extra
+):
+    root, report = mutable_bundle
+    model = report["reference"] if reference else report["models"][0]
+    timings = model["timing"][domain]
+    if extra:
+        timings[runtime] = timings["tiktoken"]
+    else:
+        del timings[runtime]
+    rebuild_summary(root, report)
+    with pytest.raises(ValueError, match=f"{model['key']}/{domain}: unexpected timing runtimes"):
+        verify(root)
