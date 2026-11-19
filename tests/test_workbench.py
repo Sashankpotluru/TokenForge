@@ -1,11 +1,13 @@
 import json
 import os
+import shutil
 import subprocess
 import sys
 import zipfile
 
 import pytest
 
+from scripts import build_site
 from scripts.build_site import PUBLIC, ROOT, WEB, build, bundle
 from web import bridge
 
@@ -27,12 +29,32 @@ def test_benchmark_rejects_installed_core_outside_measured_checkout(tmp_path):
     assert "python -m pip install -e ." in result.stderr
 
 
-def test_bundle_imports_identical_sources_and_bridge_in_isolation(tmp_path):
+def test_bundle_imports_only_release_sources_and_bridge_in_isolation(tmp_path, monkeypatch):
+    package = tmp_path / "src/tokenforge"
+    shutil.copytree(ROOT / "src/tokenforge", package, ignore=shutil.ignore_patterns("__pycache__"))
+    (package / ".local-notes.py").write_text("hidden scratch content")
+    (package / "experiment.py").write_text("unreleased working code")
+    (tmp_path / "web").mkdir()
+    shutil.copyfile(ROOT / "web/bridge.py", tmp_path / "web/bridge.py")
+    monkeypatch.setattr(build_site, "ROOT", tmp_path)
     path = tmp_path / "core.zip"
     bundle(path)
+    expected_modules = {
+        "__init__.py",
+        "bpe.py",
+        "cli.py",
+        "model.py",
+        "pretokenize.py",
+        "schema.py",
+        "training.py",
+        "wordpiece.py",
+    }
+    expected_members = {"tokenforge/" + module for module in expected_modules}
     with zipfile.ZipFile(path) as archive:
-        for file in (ROOT / "src/tokenforge").glob("*.py"):
-            assert archive.read("tokenforge/" + file.name) == file.read_bytes()
+        assert sorted(archive.namelist()) == sorted(expected_members | {"workbench_bridge.py"})
+        for module in expected_modules:
+            assert archive.read("tokenforge/" + module) == (package / module).read_bytes()
+        assert archive.read("workbench_bridge.py") == (tmp_path / "web/bridge.py").read_bytes()
     run = subprocess.check_output(
         [
             sys.executable,

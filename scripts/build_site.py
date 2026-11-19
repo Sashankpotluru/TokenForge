@@ -14,6 +14,16 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT)]
 from benchmarks.evidence import verify  # noqa: E402
 from tokenforge import Tokenizer  # noqa: E402
 
+CORE_MODULES = (
+    "__init__.py",
+    "bpe.py",
+    "cli.py",
+    "model.py",
+    "pretokenize.py",
+    "schema.py",
+    "training.py",
+    "wordpiece.py",
+)
 WEB = ("index.html", "style.css", "app.mjs", "controller.mjs", "worker.mjs", "runtime.mjs")
 PUBLIC = (
     "docs/architecture.svg",
@@ -36,7 +46,7 @@ def descriptor(path, root):
 
 
 def bundle(output):
-    members = [(p, f"tokenforge/{p.name}") for p in sorted((ROOT / "src/tokenforge").glob("*.py"))]
+    members = [(ROOT / "src/tokenforge" / name, f"tokenforge/{name}") for name in CORE_MODULES]
     members.append((ROOT / "web/bridge.py", "workbench_bridge.py"))
     with zipfile.ZipFile(output, "w") as archive:
         for path, name in members:

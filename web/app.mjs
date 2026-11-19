@@ -268,6 +268,10 @@ function navigate() {
 
 el("retry-results").onclick = loadResults;
 el("domain").onchange = renderResults;
+document.querySelector(".skip").onclick = event => {
+  event.preventDefault();
+  el("main").focus();
+};
 window.addEventListener("hashchange", navigate);
 clearEncoding();
 clearTraining();
