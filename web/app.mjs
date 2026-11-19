@@ -22,6 +22,7 @@ const controls = {
 let output = null;
 let sourceBytes = null;
 let summary = null;
+let pendingResults = null;
 let view;
 
 function measureInput(field, counter, limit) {
@@ -235,7 +236,14 @@ function renderResults() {
   }
 }
 
-async function loadResults() {
+function loadResults() {
+  if (!pendingResults) {
+    pendingResults = fetchResults().finally(() => { pendingResults = null; });
+  }
+  return pendingResults;
+}
+
+async function fetchResults() {
   set("results-note", "Loading recorded measurements…");
   el("retry-results").hidden = true;
   try {
@@ -243,6 +251,7 @@ async function loadResults() {
     summary = JSON.parse(new TextDecoder().decode(await readVerified(manifest.summary)));
     renderResults();
   } catch (error) {
+    summary = null;
     set("results-note", `Could not load verified measurements. ${error.message}`);
     el("retry-results").hidden = false;
   }

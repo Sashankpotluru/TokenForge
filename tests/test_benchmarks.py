@@ -1,8 +1,10 @@
 import json
 import shutil
+from pathlib import Path
 
 import pytest
 
+from benchmarks import measure
 from benchmarks.data import ROOT, check_file, file_info, split_rows
 from benchmarks.evidence import make_summary, verify, write_json
 from benchmarks.metrics import aggregate, timing_rates
@@ -141,3 +143,109 @@ def test_reject_incomplete_or_unexpected_runtime_inventory(
     rebuild_summary(root, report)
     with pytest.raises(ValueError, match=f"{model['key']}/{domain}: unexpected timing runtimes"):
         verify(root)
+
+
+def test_reject_rehashed_same_size_model_swap(mutable_bundle):
+    root, report = mutable_bundle
+    bpe, wp = [m for m in report["models"] if m["target"] == 1024]
+    assert bpe["vocab_size"] == wp["vocab_size"] == 1024
+    first, second = root / bpe["path"], root / wp["path"]
+    original = first.read_bytes()
+    first.write_bytes(second.read_bytes())
+    second.write_bytes(original)
+    for entry in (bpe, wp):
+        entry.update(file_info(root / entry["path"], root))
+    rebuild_summary(root, report)
+    with pytest.raises(ValueError, match="bpe-1024: model algorithm mismatch"):
+        verify(root)
+
+
+@pytest.mark.parametrize(
+    ("section", "field", "value", "error"),
+    [
+        ("report", "algorithm", "wordpiece", "report algorithm"),
+        ("report", "target", 2048, "report target"),
+        ("report", "vocab_size", 1023, "vocabulary size"),
+        ("model", "normalization", "NFC", "normalization"),
+        ("training", "vocab_size", 2048, "training parameters"),
+        ("training", "min_frequency", 1, "training parameters"),
+        ("training", "max_merges", 2000, "training parameters"),
+    ],
+)
+def test_verify_model_metadata(mutable_bundle, section, field, value, error):
+    root, report = mutable_bundle
+    entry = report["models"][0]
+    if section == "report":
+        entry[field] = value
+    else:
+        path = root / entry["path"]
+        model = json.loads(path.read_bytes())
+        (model["training"] if section == "training" else model)[field] = value
+        write_json(path, model)
+        entry.update(file_info(path, root))
+    rebuild_summary(root, report)
+    with pytest.raises(ValueError, match=f"bpe-1024: {error} mismatch"):
+        verify(root)
+
+
+@pytest.mark.parametrize("rollback_failure", [False, True])
+def test_measure_restores_bundle_after_publication_error(tmp_path, monkeypatch, rollback_failure):
+    root = tmp_path / "checkout"
+    for directory in ("models", "results"):
+        shutil.copytree(ROOT / directory, root / directory)
+
+    def snapshot():
+        return {p.relative_to(root): p.read_bytes() for p in root.rglob("*") if p.is_file()}
+
+    before = snapshot()
+    added = Path("models/fresh.json")
+    changed = Path("models/bpe-1024.json")
+    failed = Path("results/report.json")
+    published = []
+
+    def fake_run(stage, provenance, manifest):
+        for directory in ("models", "results"):
+            (stage / directory).mkdir()
+        for path in (added, changed, failed):
+            (stage / path).write_bytes(b"new artifact")
+
+    replace = Path.replace
+
+    def inject(source, destination):
+        if destination == root / failed:
+            assert (root / changed).read_bytes() == b"new artifact"
+            assert (root / added).is_file()
+            raise OSError("injected publication failure")
+        if rollback_failure and destination == root / changed and changed in published:
+            raise OSError("injected restoration failure")
+        result = replace(source, destination)
+        published.append(destination.relative_to(root))
+        return result
+
+    monkeypatch.setattr(measure, "ROOT", root)
+    monkeypatch.setattr(measure, "CACHE", tmp_path)
+    monkeypatch.setattr(measure, "environment", lambda: {})
+    monkeypatch.setattr(measure, "fetch_sources", lambda **kwargs: {})
+    monkeypatch.setattr(measure, "run", fake_run)
+    monkeypatch.setattr(Path, "replace", inject)
+    if rollback_failure:
+        with pytest.raises(RuntimeError, match="backups") as failure:
+            measure.main()
+        backups = root / ".tokenforge-publish"
+        assert str(backups) in str(failure.value)
+        assert (backups / changed).read_bytes() == before[changed]
+        assert not (root / added).exists()
+        with pytest.raises(RuntimeError, match="recovery needed"):
+            measure.main()
+        assert (backups / changed).read_bytes() == before[changed]
+    else:
+        with pytest.raises(OSError, match="injected publication failure"):
+            measure.main()
+        assert snapshot() == before
+        assert not (root / ".tokenforge-publish").exists()
+        monkeypatch.setattr(Path, "replace", replace)
+        measure.main()
+        expected = {**before, **dict.fromkeys((changed, added, failed), b"new artifact")}
+        assert snapshot() == expected
+        assert not (root / ".tokenforge-publish").exists()
+    assert changed in published and added in published

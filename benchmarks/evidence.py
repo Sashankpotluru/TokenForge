@@ -72,14 +72,36 @@ def make_summary(report, report_info):
     }
 
 
+def verify_model(root, entry, algorithm, target):
+    key = entry["key"]
+    path = root / "models" / f"{key}.json"
+    descriptor = file_info(path, root)
+    if descriptor != {field: entry.get(field) for field in descriptor}:
+        raise ValueError(f"Model descriptor mismatch: {descriptor['path']}")
+    if entry["algorithm"] != algorithm:
+        raise ValueError(f"{key}: report algorithm mismatch")
+    if type(entry["target"]) is not int or entry["target"] != target:
+        raise ValueError(f"{key}: report target mismatch")
+    model = Tokenizer.load(path)
+    if model.algorithm != algorithm:
+        raise ValueError(f"{key}: model algorithm mismatch")
+    if model.normalization != "none":
+        raise ValueError(f"{key}: normalization mismatch")
+    training = {"vocab_size": target, "min_frequency": 2, "max_merges": None}
+    if model.to_dict()["training"] != training:
+        raise ValueError(f"{key}: training parameters mismatch")
+    if type(entry["vocab_size"]) is not int or entry["vocab_size"] != model.vocab_size:
+        raise ValueError(f"{key}: vocabulary size mismatch")
+
+
 def verify(root=ROOT):
     report_path = root / "results/report.json"
     summary = json.loads((root / "results/site-summary.json").read_bytes())
     check_file(report_path, summary["report"])
     report = json.loads(report_path.read_bytes())
-    expected_keys = [f"{a}-{v}" for a in ALGORITHMS for v in TARGETS]
+    expected_models = {f"{a}-{v}": (a, v) for a in ALGORITHMS for v in TARGETS}
     observed_keys = [m["key"] for m in report["models"]]
-    if observed_keys != expected_keys or report["reference"]["key"] != "cl100k_base":
+    if observed_keys != list(expected_models) or report["reference"]["key"] != "cl100k_base":
         raise ValueError("Unexpected model inventory")
     check_file(SOURCES, report["sources_manifest"])
     if report["sources"] != json.loads(SOURCES.read_bytes()):
@@ -104,13 +126,8 @@ def verify(root=ROOT):
     for model in [*report["models"], report["reference"]]:
         key = model["key"]
         expected_runtimes = {"tiktoken"} if key == "cl100k_base" else {"tokenforge", "huggingface"}
-        if key in expected_keys:
-            path = root / "models" / f"{key}.json"
-            descriptor = file_info(path, root)
-            if descriptor != {field: model.get(field) for field in descriptor}:
-                raise ValueError(f"Model descriptor mismatch: {descriptor['path']}")
-            if model["vocab_size"] != Tokenizer.load(path).vocab_size:
-                raise ValueError(f"{key}: vocabulary size mismatch")
+        if key in expected_models:
+            verify_model(root, model, *expected_models[key])
         for domain in DOMAINS:
             domain_rows = rows[domain]
             totals = aggregate(domain_rows, key, model["algorithm"])

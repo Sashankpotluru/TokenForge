@@ -11,8 +11,9 @@ MERGE_LIMIT = 12
 
 
 def register_model(key, payload):
-    model = Tokenizer.from_dict(json.loads(payload))
-    if key != f"{model.algorithm}-{model.vocab_size}":
+    data = json.loads(payload)
+    model = Tokenizer.from_dict(data)
+    if key != f"{model.algorithm}-{data['training']['vocab_size']}":
         raise ValueError("Loaded model differs from the selected model")
     MODELS[key] = model
 

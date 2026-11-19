@@ -9,6 +9,7 @@ import pytest
 
 from scripts import build_site
 from scripts.build_site import PUBLIC, ROOT, WEB, build, bundle
+from tokenforge import train
 from web import bridge
 
 
@@ -119,3 +120,18 @@ def test_bridge_training_and_unknowns():
         assert result["size"] >= result["base"]
         with pytest.raises(ValueError, match="1,000"):
             bridge.handle(json.dumps({**request, "text": "🪶" * 1001}))
+
+
+def test_bridge_registration_uses_requested_training_target(monkeypatch):
+    monkeypatch.setattr(bridge, "MODELS", {})
+    model = train(["x"], algorithm="bpe", vocab_size=1024)
+    assert model.vocab_size == 261
+    payload = json.dumps(model.to_dict())
+    for wrong_key in ("bpe-261", "bpe-2048", "wordpiece-1024"):
+        with pytest.raises(ValueError, match="differs from the selected model"):
+            bridge.register_model(wrong_key, payload)
+    assert not bridge.MODELS
+    bridge.register_model("bpe-1024", payload)
+    request = {"kind": "encode", "key": "bpe-1024", "text": "x"}
+    result = json.loads(bridge.handle(json.dumps(request)))
+    assert result["decoded"] == "x"

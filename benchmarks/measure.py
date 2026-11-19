@@ -6,9 +6,11 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["RAYON_NUM_THREADS"] = "1"
 
 import platform
+import shutil
 import subprocess
 import sys
 import unicodedata
+from contextlib import ExitStack
 from importlib.metadata import version
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -225,17 +227,51 @@ def run(stage, provenance, manifest):
     verify(stage)
 
 
+def publish(stage, root):
+    """Replace staged files, rolling back completed replacements on publication errors."""
+    backups = root / ".tokenforge-publish"
+    try:
+        backups.mkdir()
+    except FileExistsError as exc:
+        raise RuntimeError(f"Publication in progress or recovery needed at {backups}") from exc
+
+    rollback = ExitStack()
+    try:
+        for directory in ("models", "results"):
+            destination = root / directory
+            if not destination.exists():
+                destination.mkdir()
+                rollback.callback(destination.rmdir)
+            (backups / directory).mkdir()
+            for artifact in sorted((stage / directory).iterdir()):
+                target = destination / artifact.name
+                backup = backups / directory / artifact.name
+                existed = target.exists(follow_symlinks=False)
+                if existed:
+                    shutil.copy2(target, backup, follow_symlinks=False)
+                artifact.replace(target)
+                if existed:
+                    rollback.callback(backup.replace, target)
+                else:
+                    rollback.callback(target.unlink)
+    except Exception:
+        try:
+            rollback.close()
+        except OSError as exc:
+            message = f"Rollback incomplete. Recover remaining backups from {backups}"
+            raise RuntimeError(message) from exc
+        shutil.rmtree(backups)
+        raise
+    shutil.rmtree(backups)
+
+
 def main():
     provenance = environment()
     manifest = fetch_sources(offline=True)
     with TemporaryDirectory(dir=CACHE) as temp:
         stage = Path(temp)
         run(stage, provenance, manifest)
-        for directory in ("models", "results"):
-            destination = ROOT / directory
-            destination.mkdir(exist_ok=True)
-            for artifact in (stage / directory).iterdir():
-                artifact.replace(destination / artifact.name)
+        publish(stage, ROOT)
     print("Verified and wrote models/ and results/.", flush=True)
 
 
