@@ -1,0 +1,62 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.12', '3.13']
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install locked development and benchmark tools
+        run: |
+          python -m pip install -r requirements-dev.txt -r requirements-benchmark.txt
+          python -m pip install --no-build-isolation --no-deps -e .
+          python -m pip check
+      - name: Lint, type check and test (including Hugging Face parity)
+        run: |
+          ruff check src benchmarks scripts tests web/bridge.py
+          mypy
+          python -m pytest -q
+      - name: Smoke test an installed wheel outside the checkout
+        run: |
+          python -m build --no-isolation --wheel --outdir "$RUNNER_TEMP/wheels"
+          python -m venv "$RUNNER_TEMP/smoke"
+          "$RUNNER_TEMP/smoke/bin/python" -m pip install --no-deps "$RUNNER_TEMP"/wheels/*.whl
+          cd "$RUNNER_TEMP"
+          printf 'tea tea tea' | smoke/bin/tokenforge train --algorithm bpe --vocab-size 270 --output tea.json
+          printf 'tea 🫖' | smoke/bin/tokenforge encode --model tea.json > encoded.json
+          smoke/bin/python -c 'import json; print(json.dumps(json.load(open("encoded.json"))["ids"]))' | smoke/bin/tokenforge decode --model tea.json > decoded.json
+          smoke/bin/python -c 'import json; assert json.load(open("decoded.json"))["text"] == "tea 🫖"'
+          smoke/bin/tokenforge inspect --model tea.json
+
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Verify evidence, build Pages and test browser protocol
+        run: |
+          python scripts/build_site.py
+          node --test web/tests/*.test.mjs

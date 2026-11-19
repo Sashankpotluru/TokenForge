@@ -1,0 +1,12 @@
+flowchart TB
+  UI["Browser workbench"] -->|"JSON message"| Worker["Module worker · Pyodide 0.29.3"]
+  Worker -->|"fixed Python bridge"| Core["tokenforge Python package"]
+  Core -->|"loads"| Models["Six versioned JSON vocabularies"]
+  CLI["Installed CLI"] -->|"imports"| Core
+  Offline["Offline training and evaluation"] -->|"imports"| Core
+  Offline -->|"writes"| Models
+  Offline -->|"writes"| Report["Report, row observations and site summary"]
+  Build["Static Pages build"] -->|"verifies + copies"| Report
+  Build -->|"hashes + copies"| Models
+  Build -->|"packs source"| Core
+  Build -->|"ships site and manifest"| UI

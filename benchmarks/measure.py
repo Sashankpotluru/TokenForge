@@ -14,20 +14,9 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from time import perf_counter_ns
 
-from tokenforge import train
-from tokenforge.schema import SPECIAL
+import tokenforge
 
-from .adapters import HFAdapter, cl100k
 from .data import ALGORITHMS, CACHE, ROOT, SOURCES, TARGETS, fetch_sources, file_info, read_data
-from .evidence import (
-    DOMAINS,
-    make_summary,
-    training_info,
-    verify,
-    write_json,
-    write_observations,
-)
-from .metrics import aggregate, observe_model, word_spans
 
 SUBSET_ROWS = {"wikitext": 32, "cpython": 1, "unicode": 8}
 
@@ -36,7 +25,17 @@ def git(*args):
     return subprocess.check_output(["git", *args], cwd=ROOT, text=True).strip()
 
 
+def require_checkout_core():
+    expected = (ROOT / "src/tokenforge/__init__.py").resolve()
+    if Path(tokenforge.__file__).resolve() != expected:
+        raise ValueError(
+            "Benchmark must import this checkout's TokenForge. From the repository root, "
+            "run python -m pip install -e . with the same interpreter and retry."
+        )
+
+
 def environment():
+    require_checkout_core()
     paths = ["src", "benchmarks", "tests/fixtures", "pyproject.toml", "requirements-benchmark.txt"]
     if git("status", "--porcelain", "--", *paths):
         raise ValueError("Commit the benchmark, core, inputs and dependencies before measuring")
@@ -91,6 +90,8 @@ def timed(encode, subset, expected_counts):
 
 
 def special_parity(model, hf, fixtures):
+    from tokenforge.schema import SPECIAL
+
     matched = 0
     for row in fixtures:
         # Include every literal even if the base fixture itself has none.
@@ -104,6 +105,19 @@ def special_parity(model, hf, fixtures):
 
 
 def run(stage, provenance, manifest):
+    from tokenforge import train
+
+    from .adapters import HFAdapter, cl100k
+    from .evidence import (
+        DOMAINS,
+        make_summary,
+        training_info,
+        verify,
+        write_json,
+        write_observations,
+    )
+    from .metrics import aggregate, observe_model, word_spans
+
     models, results = stage / "models", stage / "results"
     models.mkdir()
     results.mkdir()

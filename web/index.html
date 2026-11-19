@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbfcfa">
+  <meta name="description" content="Inspect byte BPE and WordPiece tokens, train a small vocabulary, and compare held-out measurements. All text processing runs in your browser.">
+  <title>TokenForge — Tokenizer workbench</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="mast">
+  <div class="mast-inner">
+    <a class="brand" href="#inspect"><i aria-hidden="true"><b></b><b></b><b></b></i>TokenForge</a>
+    <nav aria-label="Workbench views">
+      <a href="#inspect" aria-current="page">Inspect</a><a href="#train">Train</a><a href="#results">Results</a>
+    </nav>
+    <a class="source-link" href="https://github.com/Sashankpotluru/TokenForge">GitHub <span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <section id="inspect" class="view" aria-labelledby="inspect-title">
+    <div class="intro">
+      <div><h1 id="inspect-title">Tokenizer workbench</h1>
+        <p>Break text into tokens. Inspect the IDs, byte boundaries, and what survives decoding.</p></div>
+      <figure class="specimen">
+        <div aria-label="Token pieces with their vocabulary IDs"><!-- specimen --></div>
+        <figcaption>“tokenization” in byte BPE, 4,096 entries</figcaption>
+      </figure>
+    </div>
+    <div class="workspace">
+      <section class="input-pane" aria-labelledby="source-title">
+        <h2 id="source-title">Source text</h2>
+        <div class="input-controls">
+          <label>Algorithm<select id="algorithm"><option value="bpe">Byte BPE</option><option value="wordpiece">WordPiece</option></select></label>
+          <label>Vocabulary<select id="target"><option value="1024">1,024</option><option value="2048">2,048</option><option value="4096" selected>4,096</option></select></label>
+        </div>
+        <div class="editor-head"><label for="source">Input</label>
+          <label class="sample-label" for="sample">Example</label>
+          <select id="sample"><option value="prose">English</option><option value="code">Python</option><option value="unicode">Unicode</option><option value="markers">Markers</option><option value="custom" hidden>Custom</option></select>
+        </div>
+        <textarea id="source" dir="auto" spellcheck="false" aria-describedby="source-count">Small tokens make a big difference.</textarea>
+        <p id="source-count" class="counter"></p>
+        <div class="actions"><button id="encode" class="primary" type="button">Encode text</button><button id="cancel-encode" class="cancel" type="button" hidden>Cancel</button></div>
+        <p class="status" id="encode-status" role="status"></p>
+      </section>
+      <section class="output-pane" aria-labelledby="ribbon-title">
+        <div class="output-head"><h2 id="ribbon-title">Token ribbon</h2><span id="token-stat" class="token-stat"></span></div>
+        <p class="hint">Select a piece to inspect its ID and half-open byte span.</p>
+        <div id="ribbon" class="ribbon" role="group" aria-label="Encoded token pieces"></div>
+        <p id="shown" class="hint"></p>
+        <div class="detail" id="detail" hidden>
+          <div class="detail-head"><h3>Selected piece</h3><code id="selected-piece" dir="auto"></code></div>
+          <dl class="fields"><div><dt>Token ID</dt><dd id="selected-id"></dd></div><div><dt>UTF-8 span</dt><dd id="selected-span"></dd></div><div><dt>Source bytes · hex</dt><dd id="selected-hex"></dd></div></dl>
+          <p class="hint" id="selected-note"></p>
+        </div>
+      </section>
+    </div>
+    <div class="lower">
+      <section><div class="output-head"><h2>Decoded text</h2><span class="result-tag" id="decode-match"></span></div>
+        <pre id="decoded" dir="auto"></pre><p id="decode-note" class="hint"></p></section>
+      <details id="budget"><summary>Context &amp; cost estimate</summary>
+        <p class="hint">Illustrative input-only estimate. Each deployed language model fixes its tokenizer. Use that model’s token count and price for billing.</p>
+        <div class="input-controls"><label>Context window (tokens)<input id="context" type="number" min="1" step="1" value="8192"></label>
+        <label>USD per 1M input tokens<input id="rate" type="number" min="0" step="any" value="1"></label></div>
+        <p id="estimate" role="status"></p>
+      </details>
+    </div>
+  </section>
+  <section id="train" class="view" aria-labelledby="train-title" hidden>
+    <div class="intro"><div><h1 id="train-title">Merge laboratory</h1><p>Train on your own text and follow each pair the trainer chooses to merge.</p></div></div>
+    <div class="workspace">
+      <section class="input-pane"><h2>Toy corpus</h2><label>Training algorithm<select id="train-algorithm"><option value="bpe">Byte BPE</option><option value="wordpiece">WordPiece</option></select></label>
+        <label for="corpus">Training text</label><textarea id="corpus" spellcheck="false" dir="auto">low lower lowest
+low lower newer
+new newer newest</textarea>
+        <p id="corpus-count" class="counter"></p>
+        <div class="actions"><button id="train-button" type="button" class="primary">Train vocabulary</button><button id="cancel-train" type="button" class="cancel" hidden>Cancel</button></div>
+        <p id="train-status" class="status" role="status"></p>
+      </section>
+      <section class="output-pane"><h2>Merge trace</h2>
+        <p id="trace-method" class="hint"></p><p id="trace-summary">Train the corpus to see the selected pairs.</p>
+        <div id="trace-wrap" class="scroll-table" tabindex="0" role="region" aria-label="Training trace" hidden><table><thead><tr><th>Step</th><th>Selected pair</th><th>Result</th><th>Count</th><th>Score</th></tr></thead><tbody id="trace"></tbody></table></div>
+      </section>
+    </div>
+  </section>
+  <section id="results" class="view" aria-labelledby="results-title" hidden>
+    <div class="intro"><div><h1 id="results-title">Measured results</h1><p>Six vocabularies trained on the same WikiText sample, evaluated on held-out prose and Python source.</p></div></div>
+    <div class="results-head"><label>Evaluation domain<select id="domain"><option value="wikitext">WikiText-2 test</option><option value="cpython">CPython source</option></select></label>
+      <p id="domain-size" class="counter"></p></div>
+    <section class="data-section"><h2>Token counts &amp; coverage</h2><p id="results-note" role="status"></p>
+      <button id="retry-results" type="button" hidden>Retry loading results</button>
+      <div class="scroll-table" tabindex="0" role="region" aria-label="Token counts and coverage"><table><thead><tr><th>Tokenizer</th><th>Vocabulary</th><th>Tokens</th><th>Bytes/token</th><th>Known pretokens</th><th>Unknown pretokens</th><th>Known bytes/known token</th></tr></thead><tbody id="metrics"></tbody></table></div>
+      <p class="hint">WordPiece drops whitespace. A pretoken it cannot represent, including punctuation, becomes one [UNK]. The last column counts represented non-whitespace bytes per known token. Byte BPE and cl100k_base reconstruct all input bytes.</p>
+      <p class="hint">cl100k_base is a separately pretrained reference with different boundaries and a larger vocabulary.</p>
+    </section>
+    <section class="data-section"><h2>Same-model runtime</h2>
+      <p class="hint">Median bytes per second across five warm, single-threaded measurements on the recorded Apple M4 Pro. Python builds diagnostic records. The Hugging Face adapter returns IDs. These rates include interface overhead.</p>
+      <div class="scroll-table" tabindex="0" role="region" aria-label="Same-model runtime"><table><thead><tr><th>Tokenizer</th><th>Vocabulary</th><th>Python bytes/s</th><th>Hugging Face bytes/s</th><th>Rows with identical IDs</th></tr></thead><tbody id="timings"></tbody></table></div>
+    </section>
+    <div class="artifact-links"><a href="./results/report.json">Full report</a><a href="./results/rows.jsonl.gz" download>Row observations</a><a href="./results/training-rows.json">Training selection</a><a href="./results/site-summary.json">Site summary</a></div>
+  </section>
+  <noscript>This workbench requires JavaScript to run Python in a browser worker.</noscript>
+</main>
+<footer><div><b>TokenForge</b><span>Text stays in your browser.</span></div>
+  <nav aria-label="Project resources"><a href="https://github.com/Sashankpotluru/TokenForge/blob/main/docs/evaluation.md">Evaluation protocol</a><a href="./docs/architecture.svg">Architecture</a><a href="https://github.com/Sashankpotluru/TokenForge/blob/main/THIRD_PARTY_NOTICES.md">Licenses</a></nav>
+</footer>
+</body></html>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
+  <title id="title">TokenForge runtime and release architecture</title>
+  <desc id="desc">The browser sends JSON to a Pyodide module worker. Its Python bridge runs the same tokenizer package used by offline training and evaluation and reads a verified trained model. The Pages build bundles core source and verifies models and evaluation outputs before serving them with the site.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#476275"/></marker></defs>
+  <style>text{font-family:system-ui,sans-serif;fill:#18283a}.title{font-size:27px;font-weight:650}.label{font-size:18px;font-weight:650}.sub{font-size:14px}.link{fill:none;stroke:#476275;stroke-width:2;marker-end:url(#arrow)}.node{fill:#fff;stroke:#b3c4ce;stroke-width:1.4}</style>
+  <rect width="900" height="520" fill="#f4f7f7"/>
+  <text x="32" y="49" class="title">One Python core across three entry points</text>
+  <g class="node"><rect x="32" y="90" width="250" height="65" rx="5"/><rect x="32" y="215" width="250" height="75" rx="5"/><rect x="32" y="345" width="250" height="80" rx="5"/>
+    <rect x="356" y="90" width="228" height="65" rx="5"/><rect x="356" y="215" width="228" height="75" rx="5" fill="#cce8dc"/>
+    <rect x="650" y="90" width="218" height="65" rx="5"/><rect x="650" y="215" width="218" height="75" rx="5"/><rect x="650" y="345" width="218" height="80" rx="5"/></g>
+  <g class="label"><text x="48" y="119">Browser workbench</text><text x="48" y="245">Module worker</text><text x="48" y="377">Static Pages build</text>
+    <text x="372" y="119">Installed CLI</text><text x="372" y="245">tokenforge package</text>
+    <text x="666" y="119">Offline evaluation</text><text x="666" y="245">Trained models</text><text x="666" y="377">Measured evidence</text></g>
+  <g class="sub"><text x="48" y="141">Input, ribbon, trace, results</text><text x="48" y="269">Pinned Pyodide + Python bridge</text>
+    <text x="48" y="400">Verified assets + SHA-256 manifest</text><text x="372" y="141">Train, encode, decode, inspect</text><text x="372" y="269">Byte BPE and WordPiece</text>
+    <text x="666" y="141">Pinned corpora, same core</text><text x="666" y="269">Six versioned JSON files</text><text x="666" y="400">Rows, report, site summary</text></g>
+  <g class="link"><path d="M157 155v57"/><path d="M282 252h70"/><path d="M468 155v57"/><path d="M650 139l-117 74"/><path d="M583 252h63"/>
+    <path d="M759 155v57"/><path d="M868 123h16v259h-13"/><path d="M650 386H286"/><path d="M720 290v28H159v24"/>
+    <path d="M32 380H15V124h13"/></g>
+  <g class="sub"><text x="167" y="190">JSON request</text><text x="370" y="376">verify + package</text><text x="32" y="469">The build packages the Python source and bridge into core.zip. The worker checks the core and model hashes</text>
+    <text x="32" y="492">before loading them. User text and toy training stay inside the browser.</text></g>
+</svg>

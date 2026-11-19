@@ -21,3 +21,7 @@ The benchmark reads four original standard-library files from CPython v3.13.0, c
 | NumPy | Python array support loaded by the Hugging Face pretokenized-input binding | [NumPy license and bundled notices](https://numpy.org/doc/stable/license.html) |
 
 The benchmark environment installs the upstream distributions with their own notices. The six model JSON files contain TokenForge's training output. The raw WikiText files, CPython files and cl100k_base ranks are obtained separately. [Dependency lock](requirements-benchmark.txt) · [Source URLs, expected byte lengths and SHA-256 digests](benchmarks/sources.json)
+
+## Browser runtime
+
+The workbench loads Pyodide 0.29.3 from jsDelivr. Pyodide is distributed under the Mozilla Public License 2.0 and includes CPython and other components with their own terms. [Pyodide license](https://github.com/pyodide/pyodide/blob/0.29.3/LICENSE) · [Pinned runtime distribution](https://cdn.jsdelivr.net/pyodide/v0.29.3/full/)
