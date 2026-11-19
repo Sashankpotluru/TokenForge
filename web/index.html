@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fbfcfa">
-  <meta name="description" content="Inspect byte BPE and WordPiece tokens, train a small vocabulary, and compare held-out measurements. All text processing runs in your browser.">
+  <meta name="description" content="BPE and WordPiece from scratch: inspect UTF-8 token spans, follow real merge decisions, and compare six models checked against Hugging Face on 2,903 inputs each.">
   <title>TokenForge — Tokenizer workbench</title>
   <link rel="stylesheet" href="./style.css">
   <script type="module" src="./app.mjs"></script>
@@ -23,13 +23,18 @@
 <main id="main" tabindex="-1">
   <section id="inspect" class="view" aria-labelledby="inspect-title">
     <div class="intro">
-      <div><h1 id="inspect-title">Tokenizer workbench</h1>
-        <p>Break text into tokens. Inspect the IDs, byte boundaries, and what survives decoding.</p></div>
+      <div><h1 id="inspect-title">Tokenizers from scratch</h1>
+        <p>BPE and WordPiece, built in Python. Follow the training decisions, inspect every token’s bytes, and check what survives decoding.</p></div>
       <figure class="specimen">
         <div aria-label="Token pieces with their vocabulary IDs"><!-- specimen --></div>
         <figcaption>“tokenization” in byte BPE, 4,096 entries</figcaption>
       </figure>
     </div>
+    <section class="project-highlights" aria-label="What TokenForge demonstrates">
+      <article><h2>Follow the merges</h2><p>Deterministic training with visible pair counts and scores. The CLI, benchmarks and demo share one Python core.</p><a href="#train">Trace the training steps →</a></article>
+      <article><h2>Inspect every byte</h2><p>Token IDs, UTF-8 spans and full decoded text. Try Unicode to see a character split across several tokens.</p><a href="https://github.com/Sashankpotluru/TokenForge/blob/main/docs/tokenizer-contract.md">Read the tokenizer contract →</a></article>
+      <article><h2>Check the output</h2><p>All six trained models matched Hugging Face token IDs on 2,903 evaluation inputs per model.</p><a href="#results">Explore the measured results →</a></article>
+    </section>
     <div class="workspace">
       <section class="input-pane" aria-labelledby="source-title">
         <h2 id="source-title">Source text</h2>
@@ -70,7 +75,7 @@
     </div>
   </section>
   <section id="train" class="view" aria-labelledby="train-title" hidden>
-    <div class="intro"><div><h1 id="train-title">Merge laboratory</h1><p>Train on your own text and follow each pair the trainer chooses to merge.</p></div></div>
+    <div class="intro"><div><h1 id="train-title">Merge laboratory</h1><p>Follow real training decisions: the selected pair, its count, its score and the new token. Both trainers use deterministic tie-breaking.</p></div></div>
     <div class="workspace">
       <section class="input-pane"><h2>Toy corpus</h2><label>Training algorithm<select id="train-algorithm"><option value="bpe">Byte BPE</option><option value="wordpiece">WordPiece</option></select></label>
         <label for="corpus">Training text</label><textarea id="corpus" spellcheck="false" dir="auto">low lower lowest
@@ -87,7 +92,12 @@ new newer newest</textarea>
     </div>
   </section>
   <section id="results" class="view" aria-labelledby="results-title" hidden>
-    <div class="intro"><div><h1 id="results-title">Measured results</h1><p>Six vocabularies trained on the same WikiText sample, evaluated on held-out prose and Python source.</p></div></div>
+    <div class="intro"><div><h1 id="results-title">Measured results</h1><p>Compare correctness, coverage, compression and runtime. Six vocabularies trained on the same WikiText sample, with recorded evidence behind every table.</p></div></div>
+    <section class="evaluation-finding" aria-labelledby="finding-title">
+      <div><p class="eyebrow">4,096-entry models · CPython evaluation</p><h2 id="finding-title">Fewer tokens can hide lost text.</h2></div>
+      <div><p>WordPiece emitted <strong>86,657 tokens</strong> versus byte BPE’s <strong>100,493</strong> across four Python files. It also replaced <strong>11.08% of pretokens</strong> with <code>[UNK]</code> and discarded whitespace. Byte BPE reconstructed every input exactly.</p><p class="hint">Pretokens include punctuation. The unknown rate is not a linguistic word-error rate; read coverage alongside the token count.</p></div>
+    </section>
+    <section class="evaluation-scope" aria-labelledby="scope-title"><h2 id="scope-title">Same models. Independent ID checks.</h2><p>All six models matched Hugging Face token IDs on <strong>2,903 inputs each</strong>: 2,891 WikiText test rows, four CPython files and eight separate Unicode fixtures. The vocabularies and preprocessing match across runtimes. All byte BPE models reconstructed every evaluation input exactly.</p><p class="hint">Each model trained on 540 WikiText rows (249,386 UTF-8 bytes), after excluding exact test-row matches. The tables below cover the two real-world domains. <a href="https://github.com/Sashankpotluru/TokenForge/blob/main/docs/evaluation.md">Read the full protocol</a>.</p></section>
     <div class="results-head"><label>Evaluation domain<select id="domain"><option value="wikitext">WikiText-2 test</option><option value="cpython">CPython source</option></select></label>
       <p id="domain-size" class="counter"></p></div>
     <section class="data-section"><h2>Token counts &amp; coverage</h2><p id="results-note" role="status"></p>
@@ -104,7 +114,7 @@ new newer newest</textarea>
   </section>
   <noscript>This workbench requires JavaScript to run Python in a browser worker.</noscript>
 </main>
-<footer><div><b>TokenForge</b><span>Text stays in your browser.</span></div>
+<footer><div><b>TokenForge</b><span>Inspectable algorithms. Reproducible evidence.</span></div>
   <nav aria-label="Project resources"><a href="https://github.com/Sashankpotluru/TokenForge/blob/main/docs/evaluation.md">Evaluation protocol</a><a href="./docs/architecture.svg">Architecture</a><a href="https://github.com/Sashankpotluru/TokenForge/blob/main/THIRD_PARTY_NOTICES.md">Licenses</a></nav>
 </footer>
 </body></html>

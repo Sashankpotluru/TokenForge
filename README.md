@@ -1,8 +1,24 @@
 # TokenForge
 
-Train a byte-level BPE or WordPiece tokenizer, inspect exactly which UTF-8 bytes each token covers, and check its output against a second runtime. The CLI, evaluation and browser workbench share one standard-library Python implementation. [Open the workbench](https://sashankpotluru.github.io/TokenForge/) · [Source repository](https://github.com/Sashankpotluru/TokenForge)
+Byte-level BPE and WordPiece, implemented from scratch in Python and checked against Hugging Face Tokenizers. Follow how a vocabulary is learned, inspect the bytes behind each token, and measure what survives decoding. The CLI, evaluation and interactive workbench run the same implementation.
 
-The workbench opens with a working byte BPE example. Choose **Unicode** to see how one character can span several tokens, then switch to **WordPiece** and inspect a whole-pretoken fallback. **Train** shows the actual pair counts and scores for a corpus you edit. **Results** compares the six published models on prose and Python source. Your input stays in the browser.
+[Inspect tokens](https://sashankpotluru.github.io/TokenForge/) · [Follow the training steps](https://sashankpotluru.github.io/TokenForge/#train) · [Explore the results](https://sashankpotluru.github.io/TokenForge/#results)
+
+## What you can verify
+
+BPE and WordPiece are established algorithms. TokenForge's engineering focus is making their training decisions, Unicode behavior and implementation correctness inspectable.
+
+- **Training from first principles.** Deterministic pair selection, explicit tie-breaking and saved vocabularies. The training view shows actual pair counts and merge scores from the Python trainer. [Training implementation](src/tokenforge/training.py)
+- **An optimized encoder with a reference check.** Byte BPE uses a heap to apply ranked merges; a simpler rescanning encoder provides an independent implementation to compare against. [BPE implementation](src/tokenforge/bpe.py) · [Core tests](tests/test_core.py)
+- **Byte-level inspection.** Every token exposes its ID, source bytes and UTF-8 span. Unicode examples show how a character can span several tokens and how those bytes reconstruct the text. [Tokenizer contract](docs/tokenizer-contract.md)
+- **Correctness checked against another runtime.** Each of the six learned models matched Hugging Face token IDs on **2,903 inputs**: 2,891 WikiText test rows, four CPython files and eight Unicode fixtures. This compares the same vocabulary and preprocessing in both implementations. [Evaluation protocol](docs/evaluation.md)
+- **Reproducible evidence.** Pinned source revisions, model hashes, per-input observations and raw timing repetitions accompany the tables. Compression is reported alongside unknown coverage and reconstruction checks. [Report](results/report.json) · [Evidence verifier](benchmarks/evidence.py)
+
+## A result worth inspecting
+
+With 4,096-entry vocabularies, WordPiece emitted **86,657 tokens** on the four CPython files, compared with **100,493** for byte BPE. But WordPiece replaced **11.08% of pretokens** with `[UNK]` and discarded whitespace. Pretokens include punctuation, so this percentage is not a linguistic word-error rate. Byte BPE reconstructed every input exactly. Fewer tokens alone would give a misleading picture of this result. [Coverage and reconstruction measurements](results/site-summary.json)
+
+In the workbench, choose **Unicode**, inspect a token's byte span, then switch to **WordPiece** to see whole-pretoken fallback. **Train** exposes the merge decisions. **Results** compares all six vocabularies on prose and Python source, including runtime measurements and their limitations.
 
 ## Quickstart
 

@@ -38,6 +38,20 @@ h1 { font: normal clamp(2.8rem, 5.35vw, 5.15rem)/1.04 Georgia, "Times New Roman"
 .specimen b { font: 500 clamp(1.4rem, 2.8vw, 2.5rem)/1.2 var(--mono); letter-spacing: -.06em; }
 .specimen small { font: .7rem/1.5 var(--mono); }
 .specimen figcaption { margin-top: .35rem; font-size: .75rem; color: var(--muted); }
+.project-highlights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.6rem; border-top: 1px solid var(--line); padding: 1.35rem 0 1.7rem; }
+.project-highlights article + article { border-left: 1px solid var(--line); padding-left: 1.6rem; }
+.project-highlights h2 { font-size: 1.08rem; letter-spacing: -.02em; }
+.project-highlights p { font-size: .88rem; color: var(--muted); margin: .5rem 0; }
+.project-highlights a { font-size: .83rem; font-weight: 600; }
+.evaluation-finding { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.4fr); gap: 2rem; padding: 1.5rem; background: #edf4ee; border-left: 3px solid #638773; }
+.evaluation-finding .eyebrow { font-size: .73rem; font-weight: 600; color: var(--muted); margin-bottom: .65rem; }
+.evaluation-finding h2 { font: normal clamp(1.6rem, 2.5vw, 2rem)/1.15 Georgia, "Times New Roman", serif; letter-spacing: -.035em; }
+.evaluation-finding p { font-size: .94rem; }
+.evaluation-finding .hint { font-size: .82rem; }
+.evaluation-scope { padding: 1.6rem 0; max-width: 92ch; }
+.evaluation-scope h2 { font-size: 1.15rem; margin-bottom: .6rem; }
+.evaluation-scope > p { font-size: .94rem; color: var(--muted); }
+.evaluation-scope > .hint { font-size: .85rem; }
 .workspace { border: 1px solid #b8c8d0; border-top: 3px solid var(--ink); display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.3fr); background: var(--white); }
 .input-pane, .output-pane { min-width: 0; padding: clamp(18px, 2.6vw, 36px); }
 .input-pane { background: #f0f4f4; border-right: 1px solid var(--line); }
@@ -103,4 +117,6 @@ footer b { color: var(--ink); margin-right: .85rem; } footer a { color: var(--mu
   .workspace, .lower { grid-template-columns: minmax(0,1fr); } .input-pane { border: 0; border-bottom: 1px solid var(--line); }
   .lower { gap: 1rem; padding-bottom: .5rem; } .lower details { border-left: 0; border-top: 1px solid var(--line); padding: .9rem 0 0; }
   .results-head { flex-wrap: wrap; gap: .45rem; } .fields { grid-template-columns: .6fr .9fr 1.35fr; } .intro { gap: 0; }
+  .project-highlights, .evaluation-finding { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .project-highlights article + article { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 1rem; }
 }
